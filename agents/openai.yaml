@@ -1,4 +1,4 @@
 interface:
   display_name: "Interactive Study Cards"
-  short_description: "Create interactive HTML study cards from notes."
-  default_prompt: "Create an interactive HTML study page from these notes."
+  short_description: "Create source-locked HTML study cards."
+  default_prompt: "Use $interactive-study-cards to create an interactive HTML study page from these notes."

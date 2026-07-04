@@ -33,6 +33,24 @@ Use source-locked generation by default.
 - If verification is unavailable, omit the uncertain claim or ask for clarification.
 - Do not create visuals or diagrams that imply unsupported facts.
 
+## Source support levels
+
+Track source support before generating cards.
+
+- `exact`: the claim is visible in a provided note, text excerpt, code snippet, OCR result, or inspected page image.
+- `range`: the claim is based on a verified chapter, section, heading, table of contents entry, or page range, but not exact text.
+- `prerequisite`: the claim is general prerequisite knowledge used only to explain a supported source claim.
+
+Rules:
+
+- Prefer exact support for all concrete facts, formulas, examples, definitions, and source-specific wording.
+- Use range support only for conservative chapter overview cards or standard methods clearly within the verified section.
+- Do not attach precise page labels to range-supported or prerequisite-supported claims.
+- Do not present generated examples, heuristics, or strategy advice as source claims unless the source explicitly contains them.
+- For scanned or image-only PDFs, attempt text extraction, OCR, or page-image inspection before claiming exact support.
+- If only a table of contents, chapter title, or page range is accessible, say so in card metadata and avoid source-specific claims.
+- Delete or downgrade any card whose support level is weaker than its wording implies.
+
 ## Core visual principle
 
 Use frequent visual explanations, but prefer stable learning visuals over freeform diagrams.
@@ -76,6 +94,8 @@ Do not load the reference for a tiny Mini page unless visuals are central to the
 - Do not use vague references such as “it”, “this”, “the above”, “the former”, or “the latter”.
 - Split lists into separate atomic cards.
 - For important concepts, create forward, reverse, application, and contrast cards.
+- For calculation-heavy subjects, prefer concrete setup, method-choice, condition-check, and application cards over broad study-strategy or meta cards.
+- Do not create "how to study this chapter" cards unless the source explicitly teaches that strategy.
 
 ## Domain adaptation
 
@@ -91,6 +111,13 @@ Adapt card style to the subject.
 - Languages: pattern → slot function, sentence → correction, expression → register, contrast → usage distinction.
 - Linear algebra: object → property, transformation → effect, matrix/vector → interpretation, condition → method.
 - Political economy and philosophy: claim → reason, concept → boundary, theory → implication, position → contrast.
+
+## Domain guardrails
+
+Load the relevant reference when the task needs deeper constraints:
+
+- Use `references/visual-templates.md` for visual-heavy, cross-disciplinary, Pro, or Max outputs.
+- Use `references/math-guardrails.md` for calculus, linear algebra, differential equations, probability, physics formulas, or any formula-heavy math/science output.
 
 ## Math and visual explanations
 
@@ -115,6 +142,8 @@ Use correct mathematical and visual display.
 - Use qualitative diagrams when exact scale is unknown.
 - Do not draw precise quantitative graphs unless the source provides enough information.
 - Delete any visual that might mislead, contradict the card, or visually fail.
+- For each formula or method card, include the needed conditions, domain restrictions, nonzero divisors, regularity assumptions, and lost-solution caveats when they affect correct use.
+- Do not turn a method into an unconditional rule when it only works under stated hypotheses.
 
 ## Visual and diagram checks
 
@@ -170,11 +199,15 @@ Silently run this loop before final output:
    - Check that no front reveals the answer.
    - Check that each answer is short.
    - Check that every visual is source-locked and template-bound.
+   - Check that every card's source tag matches its support level.
+   - Check that every formula or method card includes required conditions or caveats.
+   - Replace broad meta cards with source-supported application cards when possible.
 
 4. Repair
    - Revise failed cards once.
    - Replace risky SVG with a stable HTML/CSS template when possible.
    - Delete cards or visuals that still fail.
+   - Downgrade precise source labels to range labels when exact support is unavailable.
    - Ask for clarification if too much material is uncertain.
 
 5. Render-check when tools allow
@@ -242,6 +275,7 @@ Required:
   - R: random card
 - Weak-card marking
 - localStorage weak-card memory
+- Safe localStorage parsing with a fallback when stored data is missing, malformed, or from an older card set
 - Weak-only review mode
 - Frequent visual explanations for visualizable concepts
 - Stable HTML/CSS templates before SVG diagrams
@@ -297,11 +331,15 @@ const cards = [
     id: "c001",
     front: "...",
     back: "...",
-    tag: "Subject::Topic::Subtopic"
+    tag: "Subject::Topic::Subtopic",
+    source: "optional source label",
+    support: "exact | range | prerequisite"
   }
 ];
 
 Cards may contain HTML, MathML, and inline SVG strings.
+
+When source material comes from files, include `source` and `support` metadata unless the user asks for a minimal page. Use exact page references only for exact support.
 
 ## Visual style
 
@@ -327,8 +365,12 @@ Before output, silently verify:
 - No front reveals the answer.
 - Important concepts use multiple recall angles.
 - Claims are supported by the source or verified.
+- Source labels do not imply stronger support than actually available.
+- Scanned or image-only PDFs are not treated as exact text sources unless OCR or page-image inspection was used.
+- Formula and method cards include necessary hypotheses, domains, and caveats.
 - Formulas render correctly.
 - Visuals and diagrams are accurate and useful.
 - Visuals use the template library when applicable.
 - The selected Mini / Pro / Max feature set is complete.
 - The HTML runs without external dependencies.
+- Pro and Max pages tolerate missing or malformed localStorage data.

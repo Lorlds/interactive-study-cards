@@ -10,9 +10,11 @@ The generated pages are designed for active recall, not passive reading. Cards a
 
 - Creates one complete HTML file with inline CSS and JavaScript.
 - Uses source-locked generation by default to avoid unsupported facts.
+- Tracks source support levels so scanned or range-only materials do not get over-precise page claims.
 - Builds active recall cards from notes, formulas, code, comparisons, and mechanisms.
 - Supports Mini, Pro, and Max output levels.
 - Uses MathML for formulas when possible.
+- Adds formula and method caveats for math/science topics, including domains, hypotheses, nonzero divisors, and lost-solution risks.
 - Includes a cross-disciplinary visual template library for definitions, comparisons, classifications, mechanisms, cause-effect chains, variable relationships, systems, arguments, language patterns, and state traces.
 - Uses stable HTML/CSS learning visuals first, such as trace tables, state tables, comparison grids, code/output panels, and before/after panels.
 - Uses inline SVG only for template-bound diagrams that need vector geometry.
@@ -31,7 +33,7 @@ curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main
 Install a specific release:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main/install.sh | bash -s -- v1.0.1.040726
+curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main/install.sh | bash -s -- v1.0.3.040726
 ```
 
 Manual install into Codex's skill discovery directory:
@@ -90,6 +92,7 @@ Max is the complete review tool. It adds tag filters, search, shuffle mode, rese
 │   └── openai.yaml
 ├── install.sh
 ├── references/
+│   ├── math-guardrails.md
 │   └── visual-templates.md
 ├── README.zh-CN.md
 └── README.md
@@ -98,6 +101,8 @@ Max is the complete review tool. It adds tag filters, search, shuffle mode, rese
 ## Grounding
 
 This skill treats the user's material as the primary source. It should not silently add unsupported claims, formulas, examples, mechanisms, visuals, or diagrams. If a claim is uncertain and verification is unavailable, the skill should omit it or ask for clarification.
+
+For scanned or image-only files, exact page labels require OCR or page-image inspection. Otherwise, the skill should use chapter-range support and avoid source-specific wording.
 
 ## License
 
