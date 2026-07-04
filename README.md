@@ -1,5 +1,7 @@
 # Interactive Study Cards
 
+[简体中文](README.zh-CN.md)
+
 Interactive Study Cards is a Codex skill for turning user-provided notes, concepts, code snippets, formulas, or learning material into a single self-contained HTML study page.
 
 The generated pages are designed for active recall, not passive reading. Cards are source-grounded, atomic, mobile-friendly, and can include MathML formulas, inline SVG diagrams, weak-card review, keyboard shortcuts, and filtering depending on the selected output level.
@@ -62,9 +64,11 @@ Max is the complete review tool. It adds tag filters, search, shuffle mode, rese
 
 ```text
 .
+├── LICENSE
 ├── SKILL.md
 ├── agents/
 │   └── openai.yaml
+├── README.zh-CN.md
 └── README.md
 ```
 
@@ -74,4 +78,4 @@ This skill treats the user's material as the primary source. It should not silen
 
 ## License
 
-No license file has been added yet. Choose and add a license before relying on this repository for open-source redistribution.
+MIT. See [LICENSE](LICENSE).
