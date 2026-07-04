@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interactive Study Cards"
+  short_description: "Create interactive HTML study cards from notes."
+  default_prompt: "Create an interactive HTML study page from these notes."
