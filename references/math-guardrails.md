@@ -11,7 +11,8 @@ Include the relevant assumptions, domain restrictions, nonzero divisors, regular
 ## Source Discipline
 
 - Use exact page, theorem, formula, or example labels only when the claim was read from that exact source.
-- Use chapter-range labels for cards based on verified chapter coverage without readable exact text.
+- Use chapter-range labels only when explicit range evidence exists, such as an inspected table of contents entry, bookmark, heading, OCR/page-image heading, or user-provided page range.
+- If only the file name, course context, or known textbook structure is available, mark standard method reminders as prerequisite or ask for better source evidence.
 - Mark standard prerequisite reminders as prerequisite, not as textbook claims.
 - Do not invent worked examples or exam heuristics unless the user asks for extra practice or the source provides them.
 
@@ -35,7 +36,7 @@ Cards should emphasize region setup and transformation validity.
 - For double integrals, include cards that convert a described region into iterated bounds.
 - For changing order of integration, identify the same region before writing new bounds.
 - For polar, cylindrical, or spherical coordinates, include the area/volume factor (`r`, `r`, `rho^2 sin phi`) and what each variable means.
-- For change of variables, include the transformed region, the absolute Jacobian determinant, and the validity conditions for the mapping when relevant.
+- For change of variables, include the transformed region, the absolute Jacobian determinant, and mapping validity conditions: differentiability/smoothness, one-to-one or piecewise one-to-one behavior on the region when needed, orientation handled by absolute value, and nonzero Jacobian where the theorem requires it.
 - For symmetry shortcuts, require both a symmetric domain and the matching parity or invariance of the integrand.
 - For differentiating under the integral sign or parameter integrals, include the needed continuity/differentiability and variable-limit conditions.
 - Do not draw precise region geometry unless the source or inspected page provides enough information.
@@ -52,6 +53,7 @@ Cards should include the equation form, method trigger, and caveats.
 - Euler-Cauchy equations: work on intervals not crossing `x = 0`; use `t = ln |x|` or state `x > 0` when using `x = e^t`.
 - Constant-coefficient linear equations: distinguish homogeneous solution, particular solution, and initial/boundary conditions.
 - Characteristic-root cards should separate distinct real roots, repeated roots, and complex roots.
+- Reduction of order or substitution methods should state the interval and nonzero/local invertibility assumptions that make the substitution valid.
 
 ## Linear Algebra
 

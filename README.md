@@ -10,7 +10,7 @@ The generated pages are designed for active recall, not passive reading. Cards a
 
 - Creates one complete HTML file with inline CSS and JavaScript.
 - Uses source-locked generation by default to avoid unsupported facts.
-- Tracks source support levels so scanned or range-only materials do not get over-precise page claims.
+- Tracks source support levels and source-audit evidence so scanned or range-only materials do not get over-precise page claims.
 - Builds active recall cards from notes, formulas, code, comparisons, and mechanisms.
 - Supports Mini, Pro, and Max output levels.
 - Uses MathML for formulas when possible.
@@ -33,7 +33,7 @@ curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main
 Install a specific release:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main/install.sh | bash -s -- v1.0.3.040726
+curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main/install.sh | bash -s -- v1.0.4.040726
 ```
 
 Manual install into Codex's skill discovery directory:
@@ -102,7 +102,7 @@ Max is the complete review tool. It adds tag filters, search, shuffle mode, rese
 
 This skill treats the user's material as the primary source. It should not silently add unsupported claims, formulas, examples, mechanisms, visuals, or diagrams. If a claim is uncertain and verification is unavailable, the skill should omit it or ask for clarification.
 
-For scanned or image-only files, exact page labels require OCR or page-image inspection. Otherwise, the skill should use chapter-range support and avoid source-specific wording.
+For scanned or image-only files, exact page labels require OCR or page-image inspection. Range labels require explicit source-audit evidence such as a table of contents entry, bookmark, heading, page image, OCR heading, or user-provided page range. Otherwise, the skill should mark standard-topic reminders as prerequisite and avoid source-specific wording.
 
 ## License
 

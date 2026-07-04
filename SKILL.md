@@ -38,18 +38,28 @@ Use source-locked generation by default.
 Track source support before generating cards.
 
 - `exact`: the claim is visible in a provided note, text excerpt, code snippet, OCR result, or inspected page image.
-- `range`: the claim is based on a verified chapter, section, heading, table of contents entry, or page range, but not exact text.
+- `range`: the claim is based on explicit range evidence such as an inspected table of contents entry, chapter heading, section heading, bookmark, OCR/page-image heading, or user-provided page range, but not exact text.
 - `prerequisite`: the claim is general prerequisite knowledge used only to explain a supported source claim.
 
 Rules:
 
 - Prefer exact support for all concrete facts, formulas, examples, definitions, and source-specific wording.
 - Use range support only for conservative chapter overview cards or standard methods clearly within the verified section.
+- Do not use range support from file names, known textbook structure, or general memory alone.
 - Do not attach precise page labels to range-supported or prerequisite-supported claims.
 - Do not present generated examples, heuristics, or strategy advice as source claims unless the source explicitly contains them.
 - For scanned or image-only PDFs, attempt text extraction, OCR, or page-image inspection before claiming exact support.
-- If only a table of contents, chapter title, or page range is accessible, say so in card metadata and avoid source-specific claims.
+- Before using range support, record the evidence type and inspected boundary, such as "TOC entry", "bookmark", "page image heading", "OCR heading", or "user-provided page range".
+- If only a file name or user topic request is available, mark standard-topic cards as prerequisite or ask for source evidence.
 - Delete or downgrade any card whose support level is weaker than its wording implies.
+
+For file-based sources, include a compact source audit in the generated HTML unless the user explicitly asks for a minimal page. The audit may be visible in the interface or embedded as structured JavaScript data. It must list:
+
+- files inspected
+- extraction or inspection method attempted
+- evidence found for each range label
+- inaccessible or missing evidence
+- support-level counts
 
 ## Core visual principle
 
@@ -183,6 +193,7 @@ Silently run this loop before final output:
 
 1. Extract
    - Identify atomic source claims.
+   - Record source evidence before assigning exact or range support.
    - Separate facts, formulas, mechanisms, examples, comparisons, and likely mistakes.
    - Classify each visualizable claim by knowledge structure.
 
@@ -200,6 +211,7 @@ Silently run this loop before final output:
    - Check that each answer is short.
    - Check that every visual is source-locked and template-bound.
    - Check that every card's source tag matches its support level.
+   - Check that every range card has explicit range evidence in the source audit.
    - Check that every formula or method card includes required conditions or caveats.
    - Replace broad meta cards with source-supported application cards when possible.
 
@@ -207,6 +219,7 @@ Silently run this loop before final output:
    - Revise failed cards once.
    - Replace risky SVG with a stable HTML/CSS template when possible.
    - Delete cards or visuals that still fail.
+   - Downgrade range cards to prerequisite when range evidence is only assumed.
    - Downgrade precise source labels to range labels when exact support is unavailable.
    - Ask for clarification if too much material is uncertain.
 
@@ -333,13 +346,14 @@ const cards = [
     back: "...",
     tag: "Subject::Topic::Subtopic",
     source: "optional source label",
-    support: "exact | range | prerequisite"
+    support: "exact | range | prerequisite",
+    evidence: "optional evidence label"
   }
 ];
 
 Cards may contain HTML, MathML, and inline SVG strings.
 
-When source material comes from files, include `source` and `support` metadata unless the user asks for a minimal page. Use exact page references only for exact support.
+When source material comes from files, include `source`, `support`, and evidence metadata unless the user asks for a minimal page. Use exact page references only for exact support. Use range references only when the source audit records explicit range evidence.
 
 ## Visual style
 
@@ -366,6 +380,8 @@ Before output, silently verify:
 - Important concepts use multiple recall angles.
 - Claims are supported by the source or verified.
 - Source labels do not imply stronger support than actually available.
+- Range labels have explicit source-audit evidence.
+- Support-level counts are internally consistent with the card data.
 - Scanned or image-only PDFs are not treated as exact text sources unless OCR or page-image inspection was used.
 - Formula and method cards include necessary hypotheses, domains, and caveats.
 - Formulas render correctly.
@@ -374,3 +390,4 @@ Before output, silently verify:
 - The selected Mini / Pro / Max feature set is complete.
 - The HTML runs without external dependencies.
 - Pro and Max pages tolerate missing or malformed localStorage data.
+- When tools allow, malformed localStorage behavior is tested, not only inspected.
