@@ -31,7 +31,20 @@ Use source-locked generation by default.
 - Do not silently correct uncertain material.
 - If a claim is wrong, outdated, ambiguous, or missing context, verify it when reliable tools are available.
 - If verification is unavailable, omit the uncertain claim or ask for clarification.
-- Do not create diagrams that imply unsupported facts.
+- Do not create visuals or diagrams that imply unsupported facts.
+
+## Core visual principle
+
+Use frequent visual explanations, but prefer stable learning visuals over freeform diagrams.
+
+Visual-first, template-bound, source-locked.
+
+- Use visuals to clarify structure, sequence, state change, comparison, quantity, or mechanism when they improve recall.
+- Treat a visual as any stable learning object: trace table, state table, comparison grid, before/after pair, timeline, labeled formula block, code/output panel, call-stack panel, flow template, graph, or SVG diagram.
+- Prefer HTML/CSS/MathML learning templates over hand-positioned SVG.
+- Use freeform SVG only when the concept truly needs vector geometry and a simple template cannot express it.
+- Do not add visuals just to satisfy a quota; delete weak, decorative, fragile, or unsupported visuals.
+- Lock every visual to the card's source claim. Do not add unsupported labels, examples, steps, numbers, arrows, or causal relationships.
 
 ## Card rules
 
@@ -62,32 +75,51 @@ Adapt card style to the subject.
 - Chemistry: structure → property, condition → result, mechanism step → reason, trend → cause.
 - Biology: structure → function, pathway step → consequence, change → effect, system → regulation.
 
-## Math and diagrams
+## Math and visual explanations
 
 Use correct mathematical and visual display.
 
 - Use MathML for formulas when possible.
 - Do not rely on raw LaTeX rendering.
 - Do not use MathJax, KaTeX, CDN scripts, or external assets unless the user explicitly allows external dependencies.
-- Use inline SVG for diagrams.
-- Add diagrams only when they improve recall or understanding.
-- Keep diagrams simple, labeled, and directly tied to the card.
+- Add visual explanations when they improve recall or understanding.
+- Prefer stable templates:
+  - Code execution: trace tables, state tables, code/output panels, call-stack panels.
+  - Loops and conditionals: vertical step templates or trace tables; avoid arrow-heavy cycle diagrams.
+  - Comparisons: two-column grids or property tables.
+  - Processes: vertical flow templates with boxed labels and thin arrows.
+  - Timelines or sequences: ordered rows with one label per step.
+  - Formulas: MathML with adjacent meaning labels.
+  - Quantitative relationships: number lines, coordinate graphs, or small tables.
+- Use inline SVG only for diagrams that need vector geometry, such as coordinate graphs, number lines, geometry, forces, pathways, or simple process arrows.
+- Keep visuals simple, labeled, and directly tied to the card.
 - Label every axis, curve, point, arrow, region, force, pathway, or object.
 - Use qualitative diagrams when exact scale is unknown.
 - Do not draw precise quantitative graphs unless the source provides enough information.
-- Delete any diagram that might mislead or contradict the card.
+- Delete any visual that might mislead, contradict the card, or visually fail.
 
-## Diagram checks
+## Visual and diagram checks
 
-Before drawing an SVG diagram, silently define:
+Before adding any visual, silently define:
 
-- diagram type
+- visual type
 - concept visualized
 - variables or objects shown
 - labels required
 - arrows or directions required
 - key relationships
-- what the diagram must not imply
+- what the visual must not imply
+
+For SVG diagrams, use layout-safe templates:
+
+- Default to vertical flowcharts for process diagrams.
+- Put text inside independent label boxes, not directly under arrows or shapes.
+- Keep arrows outside text areas.
+- Use line or path arrows with stroke width 1.5-2.5px.
+- Keep marker arrowheads at 8px or smaller.
+- Leave at least 40px between flow nodes and at least 24px of outer viewBox padding.
+- Avoid large filled polygon arrows, thick black arrows, overlapping layers, and dense curved connectors.
+- Do not let labels, arrows, axes, nodes, or legends overlap or clip.
 
 Subject checks:
 
@@ -109,18 +141,26 @@ Silently run this loop before final output:
 2. Generate
    - Create cards only from supported claims.
    - Keep one knowledge atom per card.
-   - Add diagrams only when the visual relationship is clear.
+   - Add visual explanations only when the relationship is clear.
+   - Prefer template visuals before SVG diagrams.
 
 3. Audit
    - Check every card against the source.
    - Remove unsupported, broad, ambiguous, or guess-based cards.
    - Check that no front reveals the answer.
    - Check that each answer is short.
+   - Check that every visual is source-locked and template-bound.
 
 4. Repair
    - Revise failed cards once.
-   - Delete cards or diagrams that still fail.
+   - Replace risky SVG with a stable HTML/CSS template when possible.
+   - Delete cards or visuals that still fail.
    - Ask for clarification if too much material is uncertain.
+
+5. Render-check when tools allow
+   - Open or screenshot the generated HTML at desktop and mobile widths.
+   - Check for overlapping text, clipped labels, oversized arrows, blank diagrams, unreadable formulas, and responsive layout failures.
+   - Repair the HTML, CSS, or SVG before final output.
 
 Do not expose this loop in the final output.
 
@@ -133,8 +173,9 @@ No explanation.
 No code block wrapper.
 No external libraries.
 Inline all CSS and JavaScript.
-Use inline SVG for diagrams.
-Use MathML, HTML, CSS, and SVG for formula display.
+Use HTML/CSS/MathML for stable learning visuals.
+Use inline SVG only for template-bound diagrams that need vector geometry.
+Use MathML, HTML, CSS, and SVG for formula and visual display.
 
 ## HTML levels
 
@@ -155,7 +196,8 @@ Required:
 - Tag display
 - Mobile-friendly layout
 - Correct formula display
-- Simple SVG diagrams when strongly useful
+- Simple template visuals when strongly useful
+- SVG only when the visual requires vector geometry
 
 Do not include:
 
@@ -181,7 +223,8 @@ Required:
 - Weak-card marking
 - localStorage weak-card memory
 - Weak-only review mode
-- Frequent SVG diagrams for visualizable concepts
+- Frequent visual explanations for visualizable concepts
+- Stable HTML/CSS templates before SVG diagrams
 
 ### Max
 
@@ -199,7 +242,11 @@ Required:
   - cards reviewed
   - weak cards count
   - current filtered count
-- Richer visual explanations when useful:
+- Richer template-bound visual explanations when useful:
+  - trace tables
+  - state tables
+  - before/after panels
+  - comparison grids
   - coordinate graphs
   - number lines
   - geometry diagrams
@@ -242,7 +289,7 @@ Keep the interface minimal:
 - No decorative clutter
 - Mobile-friendly layout
 - Formulas visually separated from surrounding text
-- Diagrams responsive inside the card
+- Visuals and diagrams responsive inside the card
 
 ## Final check
 
@@ -256,6 +303,6 @@ Before output, silently verify:
 - Important concepts use multiple recall angles.
 - Claims are supported by the source or verified.
 - Formulas render correctly.
-- Diagrams are accurate and useful.
+- Visuals and diagrams are accurate and useful.
 - The selected Mini / Pro / Max feature set is complete.
 - The HTML runs without external dependencies.
