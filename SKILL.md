@@ -1,6 +1,6 @@
 ---
 name: interactive-study-cards
-description: create self-contained interactive html study cards from user-provided notes, concepts, code snippets, formulas, or learning materials. use when the user asks for flashcards, active recall cards, html review pages, interactive study pages, visual study cards, or alternatives to anki import cards. supports mini, pro, and max output levels.
+description: create self-contained interactive html study cards from user-provided notes, concepts, code snippets, formulas, or learning materials across programming, economics, management, languages, mathematics, science, humanities, and social science. use when the user asks for flashcards, active recall cards, html review pages, interactive study pages, visual study cards, or alternatives to anki import cards. supports mini, pro, and max output levels.
 ---
 
 # Interactive Study Cards
@@ -15,7 +15,7 @@ If needed, ask for:
 2. Source material / notes / code:
 3. Target depth: beginner / intermediate / advanced
 4. HTML level: Mini / Pro / Max
-5. Special focus: mistakes / mechanisms / exam style / comparison / math visualization / other
+5. Special focus: mistakes / mechanisms / exam style / comparison / visual templates / math visualization / other
 
 If enough material is already provided, do not ask again.
 
@@ -45,6 +45,19 @@ Visual-first, template-bound, source-locked.
 - Use freeform SVG only when the concept truly needs vector geometry and a simple template cannot express it.
 - Do not add visuals just to satisfy a quota; delete weak, decorative, fragile, or unsupported visuals.
 - Lock every visual to the card's source claim. Do not add unsupported labels, examples, steps, numbers, arrows, or causal relationships.
+- Identify the knowledge structure before choosing a visual: definition, comparison, classification, sequence, mechanism, cause-effect, variable relationship, formula meaning, system, spatial structure, argument, language pattern, or state change.
+
+## Visual template library
+
+Use `references/visual-templates.md` when:
+
+- The user asks for visual study cards or template-based visuals.
+- The output level is Pro or Max and multiple cards can benefit from visuals.
+- The material spans non-programming domains such as economics, management, language learning, mathematics, physics, chemistry, biology, political economy, or philosophy.
+- A card needs a visual beyond the short stable-template list in this file.
+- You are about to create an SVG diagram for a concept that may be representable as an HTML/CSS learning template.
+
+Do not load the reference for a tiny Mini page unless visuals are central to the request.
 
 ## Card rules
 
@@ -74,6 +87,10 @@ Adapt card style to the subject.
 - Physics: scenario → principle, quantity change → effect, graph → meaning, formula → interpretation.
 - Chemistry: structure → property, condition → result, mechanism step → reason, trend → cause.
 - Biology: structure → function, pathway step → consequence, change → effect, system → regulation.
+- Management: scenario → model, process → decision point, incentive → behavior, structure → tradeoff.
+- Languages: pattern → slot function, sentence → correction, expression → register, contrast → usage distinction.
+- Linear algebra: object → property, transformation → effect, matrix/vector → interpretation, condition → method.
+- Political economy and philosophy: claim → reason, concept → boundary, theory → implication, position → contrast.
 
 ## Math and visual explanations
 
@@ -91,6 +108,7 @@ Use correct mathematical and visual display.
   - Timelines or sequences: ordered rows with one label per step.
   - Formulas: MathML with adjacent meaning labels.
   - Quantitative relationships: number lines, coordinate graphs, or small tables.
+- For cross-disciplinary visual choices, use `references/visual-templates.md` and choose by knowledge structure before subject.
 - Use inline SVG only for diagrams that need vector geometry, such as coordinate graphs, number lines, geometry, forces, pathways, or simple process arrows.
 - Keep visuals simple, labeled, and directly tied to the card.
 - Label every axis, curve, point, arrow, region, force, pathway, or object.
@@ -137,12 +155,14 @@ Silently run this loop before final output:
 1. Extract
    - Identify atomic source claims.
    - Separate facts, formulas, mechanisms, examples, comparisons, and likely mistakes.
+   - Classify each visualizable claim by knowledge structure.
 
 2. Generate
    - Create cards only from supported claims.
    - Keep one knowledge atom per card.
    - Add visual explanations only when the relationship is clear.
    - Prefer template visuals before SVG diagrams.
+   - Use `references/visual-templates.md` when the task is visual-heavy, cross-disciplinary, Pro, or Max.
 
 3. Audit
    - Check every card against the source.
@@ -260,6 +280,11 @@ Required:
   - force diagrams
   - reaction energy profiles
   - biological pathways
+  - concept boundary panels
+  - classification trees
+  - argument maps
+  - language pattern blocks
+  - system feedback maps
 
 Do not implement full spaced repetition unless the user explicitly asks.
 
@@ -304,5 +329,6 @@ Before output, silently verify:
 - Claims are supported by the source or verified.
 - Formulas render correctly.
 - Visuals and diagrams are accurate and useful.
+- Visuals use the template library when applicable.
 - The selected Mini / Pro / Max feature set is complete.
 - The HTML runs without external dependencies.

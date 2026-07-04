@@ -4,7 +4,7 @@
 
 Interactive Study Cards is a Codex skill for turning user-provided notes, concepts, code snippets, formulas, or learning material into a single self-contained HTML study page.
 
-The generated pages are designed for active recall, not passive reading. Cards are source-grounded, atomic, mobile-friendly, and can include MathML formulas, stable visual explanations, weak-card review, keyboard shortcuts, and filtering depending on the selected output level.
+The generated pages are designed for active recall, not passive reading. Cards are source-grounded, atomic, mobile-friendly, and can include MathML formulas, stable visual explanations, weak-card review, keyboard shortcuts, and filtering depending on the selected output level. The visual system is cross-disciplinary: it chooses templates by knowledge structure, not by subject.
 
 ## Features
 
@@ -13,6 +13,7 @@ The generated pages are designed for active recall, not passive reading. Cards a
 - Builds active recall cards from notes, formulas, code, comparisons, and mechanisms.
 - Supports Mini, Pro, and Max output levels.
 - Uses MathML for formulas when possible.
+- Includes a cross-disciplinary visual template library for definitions, comparisons, classifications, mechanisms, cause-effect chains, variable relationships, systems, arguments, language patterns, and state traces.
 - Uses stable HTML/CSS learning visuals first, such as trace tables, state tables, comparison grids, code/output panels, and before/after panels.
 - Uses inline SVG only for template-bound diagrams that need vector geometry.
 - Avoids external libraries, CDNs, MathJax, KaTeX, and external assets unless explicitly allowed.
@@ -30,7 +31,7 @@ curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main
 Install a specific release:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main/install.sh | bash -s -- v1.0.0.040726
+curl -fsSL https://raw.githubusercontent.com/Lorlds/interactive-study-cards/main/install.sh | bash -s -- v1.0.1.040726
 ```
 
 Manual install into Codex's skill discovery directory:
@@ -88,6 +89,8 @@ Max is the complete review tool. It adds tag filters, search, shuffle mode, rese
 ├── agents/
 │   └── openai.yaml
 ├── install.sh
+├── references/
+│   └── visual-templates.md
 ├── README.zh-CN.md
 └── README.md
 ```
