@@ -51,7 +51,7 @@ Restart Codex after installing so the new skill is loaded.
 
 ## Releases
 
-Versions start at `v1.0.0.040726` and use the format `v1.0.0.DDMMYY`.
+Versions start at `v1.0.0.040726` and use the format `vMAJOR.MINOR.PATCH.DDMMYY`. If multiple releases happen on the same date, increment `PATCH`.
 
 Every GitHub Release includes a short, explicit list of what changed.
 

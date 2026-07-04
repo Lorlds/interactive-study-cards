@@ -51,7 +51,7 @@ ln -s /path/to/interactive-study-cards ~/.codex/skills/interactive-study-cards
 
 ## 版本发布
 
-版本号从 `v1.0.0.040726` 开始，格式为 `v1.0.0.DDMMYY`。
+版本号从 `v1.0.0.040726` 开始，格式为 `vMAJOR.MINOR.PATCH.DDMMYY`。如果同一天多次发布，递增 `PATCH`。
 
 每次 GitHub Release 都会明确列出本次更新内容。
 
